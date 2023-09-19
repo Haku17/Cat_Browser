@@ -23,6 +23,7 @@ const BreedSelect = ({ onSelectChange }: BreedSelectProps) => {
     const breedId = e.target.value;
     // filter breed info to update catContext
     const filterBreedList = breedList.filter((breed) => breed.id === breedId);
+    // Update Cat context with breed info
     setCatBreedContext({
       id: filterBreedList[0].id,
       name: filterBreedList[0].name,
