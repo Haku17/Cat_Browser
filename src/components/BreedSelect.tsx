@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import BreedOption from "./BreedOption";
 import { useCatContext } from "../context/CatContext";
 
@@ -17,6 +18,11 @@ type BreedSelectProps = {
 const BreedSelect = ({ onSelectChange }: BreedSelectProps) => {
   const { catBreedContext, setCatBreedContext } = useCatContext();
   const [breedList, setBreedList] = useState<BreedListProps[]>([]);
+
+  // Access URL parameter if valid
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const breedParam = params.get("breed");
 
   // lifts BreedId state up to home page when select value changes
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -44,6 +50,8 @@ const BreedSelect = ({ onSelectChange }: BreedSelectProps) => {
     // Check if a previous breedId exists and set it if it does
     if (catBreedContext !== null && catBreedContext?.id !== "") {
       onSelectChange(catBreedContext.id);
+    } else if (breedParam !== null) {
+      onSelectChange(breedParam);
     }
   }, []);
 

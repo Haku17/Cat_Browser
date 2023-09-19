@@ -9,7 +9,7 @@ function App() {
     <CatContextProvider>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/breed/:breedId" element={<SingleCatPage />} />
+        <Route path="/breed/:photoId" element={<SingleCatPage />} />
       </Routes>
     </CatContextProvider>
   );

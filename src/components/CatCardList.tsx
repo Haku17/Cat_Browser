@@ -58,7 +58,7 @@ const CatCardList = ({ catId }: { catId: string }) => {
       {!catId && <p>Select a breed to see more cats!</p>}
       <div style={ContainerStyles}>
         {displayedPhotos.map((photo) => (
-          <CatCard key={photo.id} id={photo.id} url={photo.url} />
+          <CatCard key={photo.id} photoId={photo.id} url={photo.url} />
         ))}
       </div>
       {/* show button as long as there are more photos in the array */}

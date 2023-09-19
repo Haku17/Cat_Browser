@@ -13,11 +13,11 @@ const DivStyles: CSSProperties = {
   flexDirection: "column",
 };
 
-const CatCard = ({ id, url }: { id: string; url: string }) => {
+const CatCard = ({ photoId, url }: { photoId: string; url: string }) => {
   return (
     <div style={DivStyles}>
       <img src={url} style={ImgStyles} />
-      <Link to={`breed/${id}`}>Learn More</Link>
+      <Link to={`/breed/${photoId}`}>View Details</Link>
     </div>
   );
 };
