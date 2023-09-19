@@ -83,7 +83,7 @@ const BreedSelect = ({ onSelectChange, setError }: BreedSelectProps) => {
         value={catBreedContext?.id || breedParam || "default"}
         onChange={handleSelect}
       >
-        <option disabled value="default" selected>
+        <option disabled value="default">
           Select breed
         </option>
         {breedList.map((breed) => (

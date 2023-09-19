@@ -1,15 +1,25 @@
-import { CSSProperties, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 import CatCard from "./CatCard";
 import FetchErrorAlert from "./FetchErrorAlert";
 
-const ContainerStyles: CSSProperties = {
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "center",
-  alignItems: "start",
-  width: "100%",
-  gap: "10px",
-};
+const StyledContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  gap: 10px;
+`;
+
+// const ContainerStyles: CSSProperties = {
+//   display: "flex",
+//   flexWrap: "wrap",
+//   justifyContent: "center",
+//   alignItems: "start",
+//   width: "100%",
+//   gap: "10px",
+// };
 
 type CatPhotoProps = {
   id: string;
@@ -80,11 +90,11 @@ const CatCardList = ({ catId, errorMessage, setError }: CatCardListProps) => {
     <>
       {!catId && <p>Select a breed to see more cats!</p>}
       {errorMessage && <FetchErrorAlert />}
-      <div style={ContainerStyles}>
+      <StyledContainer>
         {displayedPhotos.map((photo) => (
           <CatCard key={photo.id} photoId={photo.id} url={photo.url} />
         ))}
-      </div>
+      </StyledContainer>
       {/* show button as long as there are more photos in the array */}
       {startIndex < catPhotos.length && (
         <button onClick={loadNextPhotos}>Load More 😼</button>
