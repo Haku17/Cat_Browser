@@ -13,9 +13,10 @@ type BreedListProps = {
 
 type BreedSelectProps = {
   onSelectChange: React.Dispatch<React.SetStateAction<string>>;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const BreedSelect = ({ onSelectChange }: BreedSelectProps) => {
+const BreedSelect = ({ onSelectChange, setError }: BreedSelectProps) => {
   const { catBreedContext, setCatBreedContext } = useCatContext();
   const [breedList, setBreedList] = useState<BreedListProps[]>([]);
 
@@ -29,23 +30,42 @@ const BreedSelect = ({ onSelectChange }: BreedSelectProps) => {
     const breedId = e.target.value;
     // filter breed info to update catContext
     const filterBreedList = breedList.filter((breed) => breed.id === breedId);
-    // Update Cat context with breed info
-    setCatBreedContext({
-      id: filterBreedList[0].id,
-      name: filterBreedList[0].name,
-      origin: filterBreedList[0].origin,
-      temperament: filterBreedList[0].temperament,
-      description: filterBreedList[0].description,
-    });
+    // Error handling on bad filter request
+    if (!filterBreedList[0]) {
+      setError(true);
+    } else {
+      // Update Cat context with breed info
+      setCatBreedContext({
+        id: filterBreedList[0].id,
+        name: filterBreedList[0].name,
+        origin: filterBreedList[0].origin,
+        temperament: filterBreedList[0].temperament,
+        description: filterBreedList[0].description,
+      });
+    }
     onSelectChange(breedId);
   };
 
   useEffect(() => {
     // Fetch breeds and populate select options
     fetch("https://api.thecatapi.com/v1/breeds")
-      .then((response) => response.json())
-      .then((data) => setBreedList(data))
-      .catch((err) => console.log(err));
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status Code: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data === null || Object.keys(data).length === 0) {
+          throw new Error("No data recieved!");
+        }
+        setError(false);
+        return setBreedList(data);
+      })
+      .catch((err) => {
+        console.error("ERROR", err);
+        setError(true);
+      });
 
     // Check if a previous breedId exists and set it if it does
     if (catBreedContext !== null && catBreedContext?.id !== "") {
@@ -60,7 +80,7 @@ const BreedSelect = ({ onSelectChange }: BreedSelectProps) => {
       <label htmlFor="breed_select">Breed</label>
       <select
         id="breed_select"
-        value={catBreedContext?.id || "default"}
+        value={catBreedContext?.id || breedParam || "default"}
         onChange={handleSelect}
       >
         <option disabled value="default" selected>

@@ -1,5 +1,6 @@
 import { CSSProperties, useEffect, useState } from "react";
 import CatCard from "./CatCard";
+import FetchErrorAlert from "./FetchErrorAlert";
 
 const ContainerStyles: CSSProperties = {
   display: "flex",
@@ -17,7 +18,13 @@ type CatPhotoProps = {
   height: number;
 };
 
-const CatCardList = ({ catId }: { catId: string }) => {
+type CatCardListProps = {
+  catId: string;
+  errorMessage: boolean;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const CatCardList = ({ catId, errorMessage, setError }: CatCardListProps) => {
   const [catPhotos, setCatPhotos] = useState<CatPhotoProps[]>([]);
   const [displayedPhotos, setDisplayedPhotos] = useState<CatPhotoProps[]>([]);
   const [startIndex, setStartIndex] = useState(0);
@@ -36,16 +43,32 @@ const CatCardList = ({ catId }: { catId: string }) => {
     if (!catId) {
       return;
     }
+    // set error state back to false on next attempt
+    setError(false);
     fetch(
       `https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${catId}`
     )
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
+        if (data === null || Object.keys(data).length === 0) {
+          throw new Error("Empty data set!");
+        }
+
         setCatPhotos(data);
         // reset start index if new catPhotos
         setStartIndex(0);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.error("Error", e);
+        // empties cat photos on fail
+        setCatPhotos([]);
+        setError(true);
+      });
   }, [catId]);
 
   // Inital call of loadNextPhots(), resets if catPhotos array changes
@@ -56,13 +79,14 @@ const CatCardList = ({ catId }: { catId: string }) => {
   return (
     <>
       {!catId && <p>Select a breed to see more cats!</p>}
+      {errorMessage && <FetchErrorAlert />}
       <div style={ContainerStyles}>
         {displayedPhotos.map((photo) => (
           <CatCard key={photo.id} photoId={photo.id} url={photo.url} />
         ))}
       </div>
       {/* show button as long as there are more photos in the array */}
-      {startIndex <= catPhotos.length && (
+      {startIndex < catPhotos.length && (
         <button onClick={loadNextPhotos}>Load More 😼</button>
       )}
     </>
