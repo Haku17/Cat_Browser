@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import BreedOption from "./BreedOption";
+import { useCatContext } from "../context/CatContext";
 
 type BreedListProps = {
   id: string;
@@ -14,10 +15,21 @@ type BreedSelectProps = {
 };
 
 const BreedSelect = ({ onSelectChange }: BreedSelectProps) => {
+  const { setCatBreedContext } = useCatContext();
   const [breedList, setBreedList] = useState<BreedListProps[]>([]);
 
+  // lifts BreedId state up to home page when select value changes
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const breedId = e.target.value;
+    // filter breed info to update catContext
+    const filterBreedList = breedList.filter((breed) => breed.id === breedId);
+    setCatBreedContext({
+      id: filterBreedList[0].id,
+      name: filterBreedList[0].name,
+      origin: filterBreedList[0].origin,
+      temperament: filterBreedList[0].temperament,
+      description: filterBreedList[0].description,
+    });
     onSelectChange(breedId);
   };
 

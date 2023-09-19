@@ -1,15 +1,17 @@
 import React, { createContext, useState, useContext } from "react";
 
-export type CatContextData = {
-  catBreedContext: {
-    id: string;
-    name: string;
-    origin: string;
-    temperament: string;
-    description: string;
-  };
+type CatBreedContext = {
+  id: string;
+  name: string;
+  origin: string;
+  temperament: string;
+  description: string;
+};
+
+type CatContextData = {
+  catBreedContext: CatBreedContext | null;
   setCatBreedContext: React.Dispatch<
-    React.SetStateAction<CatContextData | null>
+    React.SetStateAction<CatBreedContext | null>
   >;
 };
 
@@ -22,15 +24,20 @@ const CatContext = createContext<CatContextData | null>(null);
 
 // Component that lets us pass context and the context setter
 const CatContextProvider = ({ children }: CatContextProviderProps) => {
-  const [catBreedContext, setCatBreedContext] = useState<CatContextData | null>(
-    null
-  );
+  const [catBreedContext, setCatBreedContext] =
+    useState<CatBreedContext | null>({
+      id: "",
+      name: "",
+      origin: "",
+      temperament: "",
+      description: "",
+    });
 
   return (
     <CatContext.Provider
       value={{
-        catBreedContext,
-        setCatBreedContext,
+        catBreedContext: catBreedContext,
+        setCatBreedContext: setCatBreedContext,
       }}
     >
       {children}
