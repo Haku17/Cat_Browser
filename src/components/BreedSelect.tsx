@@ -15,7 +15,7 @@ type BreedSelectProps = {
 };
 
 const BreedSelect = ({ onSelectChange }: BreedSelectProps) => {
-  const { setCatBreedContext } = useCatContext();
+  const { catBreedContext, setCatBreedContext } = useCatContext();
   const [breedList, setBreedList] = useState<BreedListProps[]>([]);
 
   // lifts BreedId state up to home page when select value changes
@@ -40,13 +40,22 @@ const BreedSelect = ({ onSelectChange }: BreedSelectProps) => {
       .then((response) => response.json())
       .then((data) => setBreedList(data))
       .catch((err) => console.log(err));
+
+    // Check if a previous breedId exists and set it if it does
+    if (catBreedContext !== null && catBreedContext?.id !== "") {
+      onSelectChange(catBreedContext.id);
+    }
   }, []);
 
   return (
     <>
       <label htmlFor="breed_select">Breed</label>
-      <select id="breed_select" onChange={handleSelect}>
-        <option disabled value="breed">
+      <select
+        id="breed_select"
+        value={catBreedContext?.id || "default"}
+        onChange={handleSelect}
+      >
+        <option disabled value="default" selected>
           Select breed
         </option>
         {breedList.map((breed) => (
