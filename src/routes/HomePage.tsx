@@ -7,8 +7,8 @@ const HomePage = () => {
   const [error, setError] = useState(false);
   return (
     <>
-      <h1>Cat Browser!</h1>
-      <h2>Select a breed to see some cats!</h2>
+      <h1>Cat browser</h1>
+      <p>Select a breed to see some cats, Miau!</p>
       <BreedSelect onSelectChange={setCatId} setError={setError} />
       <CatCardList catId={catId} errorMessage={error} setError={setError} />
     </>

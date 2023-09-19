@@ -36,7 +36,7 @@ const CatCard = ({ photoId, url }: { photoId: string; url: string }) => {
   return (
     <StyledCard>
       <img src={url} />
-      <Link to={`/breed/${photoId}`}>View Details</Link>
+      <Link to={`/breed/${photoId}`}>View details</Link>
     </StyledCard>
   );
 };

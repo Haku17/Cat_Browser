@@ -2,6 +2,14 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import BreedOption from "./BreedOption";
 import { useCatContext } from "../context/CatContext";
+import styled from "styled-components";
+
+const StyledSelect = styled.select`
+  margin-bottom: 2rem;
+  width: 250px;
+  font-size: 1rem;
+  padding: 10px 20px;
+`;
 
 type BreedListProps = {
   id: string;
@@ -77,8 +85,7 @@ const BreedSelect = ({ onSelectChange, setError }: BreedSelectProps) => {
 
   return (
     <>
-      <label htmlFor="breed_select">Breed</label>
-      <select
+      <StyledSelect
         id="breed_select"
         value={catBreedContext?.id || breedParam || "default"}
         onChange={handleSelect}
@@ -89,7 +96,7 @@ const BreedSelect = ({ onSelectChange, setError }: BreedSelectProps) => {
         {breedList.map((breed) => (
           <BreedOption key={breed.id} id={breed.id} name={breed.name} />
         ))}
-      </select>
+      </StyledSelect>
     </>
   );
 };

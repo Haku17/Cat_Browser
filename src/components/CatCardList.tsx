@@ -94,7 +94,6 @@ const CatCardList = ({ catId, errorMessage, setError }: CatCardListProps) => {
 
   return (
     <>
-      {!catId && <p>Select a breed to see more cats!</p>}
       {errorMessage && <FetchErrorAlert />}
       <StyledContainer>
         {displayedPhotos.map((photo) => (
@@ -103,7 +102,7 @@ const CatCardList = ({ catId, errorMessage, setError }: CatCardListProps) => {
       </StyledContainer>
       {/* show button as long as there are more photos in the array */}
       {startIndex < catPhotos.length && (
-        <Button onClick={loadNextPhotos}>Load More 😼</Button>
+        <Button onClick={loadNextPhotos}>Load more</Button>
       )}
     </>
   );
