@@ -6,8 +6,12 @@ import styled from "styled-components";
 const Main = styled.main`
   display: flex;
   flex-direction: column;
+  max-width: 1068px;
   background-color: #262d40;
   padding: 1rem;
+  margin: 0 auto;
+  justify-content: start;
+  text-align: start;
 
   h1 {
     font-size: 1.5rem;
@@ -17,6 +21,7 @@ const Main = styled.main`
 
   p {
     color: #fff;
+    white-space: pre-line;
   }
 
   img {
@@ -63,12 +68,21 @@ const SingleCatPage = () => {
 
   return (
     <Main>
-      <Link to={`/?breed=${catBreedContext?.id}`}>Back</Link>
-      <img src={`https://cdn2.thecatapi.com/images/${photoId}.jpg`}></img>
       <h1>{catBreedContext?.name}</h1>
-      <p>{catBreedContext?.origin}</p>
-      <p>{catBreedContext?.temperament}</p>
-      <p>{catBreedContext?.description}</p>
+      <img src={`https://cdn2.thecatapi.com/images/${photoId}.jpg`}></img>
+      <p>
+        <strong>Origin</strong> <br />
+        {catBreedContext?.origin}
+      </p>
+      <p>
+        <strong>Temperament</strong> <br />
+        {catBreedContext?.temperament}
+      </p>
+      <p>
+        <strong>Description</strong> <br />
+        {catBreedContext?.description}
+      </p>
+      <Link to={`/?breed=${catBreedContext?.id}`}>Back</Link>
     </Main>
   );
 };

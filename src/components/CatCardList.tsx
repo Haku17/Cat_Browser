@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CatCard from "./CatCard";
 import FetchErrorAlert from "./FetchErrorAlert";
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.section`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -12,14 +12,22 @@ const StyledContainer = styled.div`
   gap: 10px;
 `;
 
-// const ContainerStyles: CSSProperties = {
-//   display: "flex",
-//   flexWrap: "wrap",
-//   justifyContent: "center",
-//   alignItems: "start",
-//   width: "100%",
-//   gap: "10px",
-// };
+const Button = styled.button`
+  width: 250px;
+  padding: 8px 0;
+  font-size: 1.2rem;
+  background-color: #43b67d;
+  color: #fff;
+  border-radius: 10px;
+  transition: ease background-color 200ms;
+  align-self: center;
+  margin-top: 2rem;
+  border: none;
+
+  &:hover {
+    background-color: #50db96;
+  }
+`;
 
 type CatPhotoProps = {
   id: string;
@@ -44,8 +52,6 @@ const CatCardList = ({ catId, errorMessage, setError }: CatCardListProps) => {
     const endIndex = startIndex + 3;
     setDisplayedPhotos(catPhotos.slice(0, endIndex));
     setStartIndex(endIndex);
-    console.log("catPhotos: ", catPhotos.length);
-    console.log("startIndex ", startIndex);
   };
 
   // Fetches images of the selected cat breed by catId, then sets them to state variable (catPhoto) to be rendered below by CatCard component
@@ -97,7 +103,7 @@ const CatCardList = ({ catId, errorMessage, setError }: CatCardListProps) => {
       </StyledContainer>
       {/* show button as long as there are more photos in the array */}
       {startIndex < catPhotos.length && (
-        <button onClick={loadNextPhotos}>Load More 😼</button>
+        <Button onClick={loadNextPhotos}>Load More 😼</Button>
       )}
     </>
   );

@@ -1,24 +1,43 @@
-import { CSSProperties } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-const ImgStyles: CSSProperties = {
-  width: "200px",
-  height: "200px",
-  objectFit: "cover",
-  objectPosition: "center",
-};
+const StyledCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30%;
+  height: 350px;
+  background-color: #262d40;
+  padding: 1rem;
+  box-shadow: 5px 5px 5px #111723;
 
-const DivStyles: CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-};
+  img {
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  a {
+    width: 55%;
+    padding: 8px 0;
+    background-color: #6a68f5;
+    color: #fff;
+    border-radius: 10px;
+    transition: ease background-color 200ms;
+    align-self: center;
+
+    &:hover {
+      background-color: #8684ff;
+    }
+  }
+`;
 
 const CatCard = ({ photoId, url }: { photoId: string; url: string }) => {
   return (
-    <div style={DivStyles}>
-      <img src={url} style={ImgStyles} />
+    <StyledCard>
+      <img src={url} />
       <Link to={`/breed/${photoId}`}>View Details</Link>
-    </div>
+    </StyledCard>
   );
 };
 
