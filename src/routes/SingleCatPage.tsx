@@ -22,6 +22,10 @@ const SingleCatPage = () => {
             temperament: data.breeds[0].temperament,
             description: data.breeds[0].description,
           });
+        })
+        .catch((err) => {
+          console.error("Error: ", err);
+          alert("Something went wrong. Please try again, Miau!");
         });
     }
   }, [catBreedContext]);

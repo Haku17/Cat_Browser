@@ -68,7 +68,7 @@ const BreedSelect = ({ onSelectChange, setError }: BreedSelectProps) => {
         setError(true);
       });
 
-    // Check if a previous breedId exists and set it if it does
+    // Check if a previous breedId exists in the context or the parameters
     if (catBreedContext !== null && catBreedContext?.id !== "") {
       onSelectChange(catBreedContext.id);
     } else if (breedParam !== null) {

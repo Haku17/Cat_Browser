@@ -1,6 +1,7 @@
 import sadCat from "../assets/sad-cat.png";
 import StyledError from "../styles/FetchError.styles";
 
+// User friendly error message to display to user upon data Fetch failure
 const FetchError = () => {
   return (
     <StyledError>

@@ -35,6 +35,7 @@ const CatCardList = ({ catId, errorMessage, setError }: CatCardListProps) => {
     }
     // set error state back to false on next attempt
     setError(false);
+
     fetch(
       `https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${catId}`
     )
@@ -61,7 +62,7 @@ const CatCardList = ({ catId, errorMessage, setError }: CatCardListProps) => {
       });
   }, [catId]);
 
-  // Inital call of loadNextPhots(), resets if catPhotos array changes
+  // Inital call of loadNextPhotos(), resets if catPhotos array changes
   useEffect(() => {
     loadNextPhotos();
   }, [catPhotos]);

@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import StyledCard from "../styles/CatCard.styles";
 
-const CatCard = ({ photoId, url }: { photoId: string; url: string }) => {
+type CatCardProps = {
+  photoId: string;
+  url: string;
+};
+
+const CatCard = ({ photoId, url }: CatCardProps) => {
   return (
     <StyledCard>
       <img src={url} />
