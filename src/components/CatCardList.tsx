@@ -13,19 +13,21 @@ const StyledContainer = styled.section`
 `;
 
 const Button = styled.button`
-  width: 250px;
-  padding: 8px 0;
   font-size: 1.2rem;
-  background-color: #43b67d;
-  color: #fff;
-  border-radius: 10px;
-  transition: ease background-color 200ms;
-  align-self: center;
+  background-color: transparent;
+  border: 2px solid #43b67d;
   margin-top: 2rem;
-  border: none;
+  width: 150px;
+  padding: 8px 0;
+  color: #43b67d;
+  border-radius: 15px;
+  transition: ease all 200ms;
+  align-self: center;
+  cursor: pointer;
 
   &:hover {
-    background-color: #50db96;
+    color: #50db96;
+    border: 2px solid #50db96;
   }
 `;
 
