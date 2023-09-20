@@ -1,11 +1,7 @@
 import { useState } from "react";
 import BreedSelect from "../components/BreedSelect";
 import CatCardList from "../components/CatCardList";
-import styled from "styled-components";
-
-const Subtext = styled.p`
-  font-size: 1.5rem;
-`;
+import Subtext from "../styles/HomePage.styles";
 
 const HomePage = () => {
   const [catId, setCatId] = useState("");
