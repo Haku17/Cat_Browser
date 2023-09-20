@@ -32,7 +32,10 @@ const SingleCatPage = () => {
 
   return (
     <Main>
-      <h1>{catBreedContext?.name}</h1>
+      <div>
+        <Link to={`/?breed=${catBreedContext?.id}`}>Back</Link>
+        <h1>{catBreedContext?.name}</h1>
+      </div>
       <img src={`https://cdn2.thecatapi.com/images/${photoId}.jpg`}></img>
       <p>
         <strong>Origin</strong> <br />
@@ -46,7 +49,6 @@ const SingleCatPage = () => {
         <strong>Description</strong> <br />
         {catBreedContext?.description}
       </p>
-      <Link to={`/?breed=${catBreedContext?.id}`}>Back</Link>
     </Main>
   );
 };

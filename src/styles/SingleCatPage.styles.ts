@@ -12,6 +12,12 @@ const Main = styled.main`
   box-shadow: 5px 5px 5px #111723;
   border-radius: 15px;
 
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   h1 {
     font-size: 1.5rem;
     font-weight: 700;
